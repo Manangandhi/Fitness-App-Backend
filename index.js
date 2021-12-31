@@ -23,5 +23,8 @@ app.get("/", (req, res) => {
 const user = require("./routes/authentication");
 app.use("/user", user);
 
+const workout = require("./routes/workout");
+app.use("/workout", workout);
+
 const port = 5000;
 app.listen(port, () => console.log(`Server Started at Port ${port}`));
