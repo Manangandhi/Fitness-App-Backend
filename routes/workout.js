@@ -35,7 +35,6 @@ router.delete("/delete", async (req, res) => {
   try {
     const deleteItem = await Workout.findOneAndDelete({ _id });
     res.send(deleteItem);
-    // res.json({ message: "Deleted Successfully." });
   } catch (e) {
     res.status(500).json({ message: e.message });
   }
