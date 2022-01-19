@@ -23,6 +23,7 @@ router.post("/create", async (req, res) => {
       exercises: exercises || [],
     });
     const result = await wk.save();
+    console.log("result:", result);
     res.send(result);
   } catch (e) {
     res.status(500).json({ message: e.message });
