@@ -23,12 +23,37 @@ router.post("/create", async (req, res) => {
       exercises: exercises || [],
     });
     const result = await wk.save();
-    console.log("result:", result);
     res.send(result);
   } catch (e) {
     res.status(500).json({ message: e.message });
   }
 });
+
+// Update
+router.patch("/update", async (req, res) => {
+  const { exercises, _id } = req.body;
+  try {
+    const updatedExercises = await Workout.findByIdAndUpdate(
+      { _id },
+      { exercises },
+      { new: true }
+    );
+    if (_id === null) {
+      return res.status(404).json({ message: "Id is required" });
+    }
+    if (exercises === []) {
+      return res.status(404).json({ message: "Exercise is required" });
+    }
+    if (updatedExercises === null) {
+      return res.status(404).json({ message: "Cannot Find workout" });
+    }
+    res.json(updatedExercises);
+  } catch (e) {
+    console.log(e)
+    res.status(500).json({ message: e.message });
+  }
+
+})
 
 // Delete
 router.delete("/delete", async (req, res) => {
